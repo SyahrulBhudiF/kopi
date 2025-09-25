@@ -9,7 +9,6 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { SearchBar } from "../components/search-bar";
 
 const allRecipes = await getCollection("recipes");
-const allBeans = await getCollection("beans");
 const allBrewers = await getCollection("brewers");
 
 const recentRecipes = allRecipes
@@ -20,15 +19,6 @@ const recentRecipes = allRecipes
 		title: recipe.data.title,
 		description: recipe.data.description,
 		tags: recipe.data.tags,
-	}));
-
-const beans = allBeans
-	.filter((bean: CollectionEntry<"beans">) => bean.data.featured)
-	.slice(0, 3)
-	.map((bean: CollectionEntry<"beans">) => ({
-		name: bean.data.name,
-		roaster: bean.data.roaster,
-		notes: bean.data.notes,
 	}));
 
 const topBrewers = allBrewers
@@ -71,17 +61,13 @@ const brewerRecipes = allRecipes
 				KOPI.DIRECTORY
 			</h1>
 			<p class="mx-auto max-w-2xl text-rose-pine-subtle font-mono">
-				Explore and share coffee recipes, browse beans, and follow the
-				latest brew guides in one place.
+				Explore and share coffee recipes, and follow the latest brew
+				guides in one place.
 			</p>
 			<SearchBar client:visible />
 		</header>
 
-		<Section
-			id="brewers"
-			title="Top brewers"
-			href="/brewers"
-		>
+		<Section id="brewers" title="Top brewers" href="/brewers">
 			{
 				topBrewers.map((brewer: any) => (
 					<BrewerCard name={brewer.name} location={brewer.location} />
@@ -89,11 +75,7 @@ const brewerRecipes = allRecipes
 			}
 		</Section>
 
-		<Section
-			id="recent"
-			title="Recent recipes"
-			href="/recipes"
-		>
+		<Section id="recent" title="Recent recipes" href="/recipes">
 			{
 				recentRecipes.map((recipe: any) => (
 					<RecipeCard
@@ -106,27 +88,7 @@ const brewerRecipes = allRecipes
 			}
 		</Section>
 
-		<Section
-			id="beans"
-			title="Single origin picks"
-			href="/beans"
-		>
-			{
-				beans.map((bean: any) => (
-					<BeanCard
-						name={bean.name}
-						roaster={bean.roaster}
-						notes={bean.notes}
-					/>
-				))
-			}
-		</Section>
-
-		<Section
-			id="guides"
-			title="Quick brew ratios"
-			href="/guides"
-		>
+		<Section id="guides" title="Quick brew ratios" href="/guides">
 			{
 				brewRatios.map((item: any) => (
 					<RatioStat

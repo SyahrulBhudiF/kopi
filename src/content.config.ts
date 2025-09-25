@@ -70,32 +70,6 @@ const recipes = defineCollection({
 		),
 });
 
-const beans = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/beans" }),
-	schema: z.object({
-		name: z.string(),
-		roaster: z.string(),
-		origin: z.string(),
-		process: z.enum(["Washed", "Natural", "Honey", "Anaerobic", "Other"]),
-		roastLevel: z.enum([
-			"Light",
-			"Medium-Light",
-			"Medium",
-			"Medium-Dark",
-			"Dark",
-		]),
-		notes: z.string(),
-		price: z.number().optional(),
-		availability: z
-			.enum(["In Stock", "Limited", "Out of Stock"])
-			.default("In Stock"),
-		rating: z.number().min(1).max(5).optional(),
-		featured: z.boolean().default(false),
-		publishedAt: z.date(),
-		updatedAt: z.date().optional(),
-	}),
-});
-
 const brewers = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/brewers" }),
 	schema: z.object({
@@ -131,7 +105,6 @@ const guides = defineCollection({
 
 export const collections = {
 	recipes,
-	beans,
 	brewers,
 	guides,
 };
