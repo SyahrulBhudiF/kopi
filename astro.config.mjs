@@ -1,9 +1,22 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import cloudflare from '@astrojs/cloudflare';
+import cloudflare from "@astrojs/cloudflare";
+import solidJs from "@astrojs/solid-js";
+import tailwindcss from "@tailwindcss/vite";
+import Icons from "unplugin-icons/vite";
 
-// https://astro.build/config
 export default defineConfig({
-  adapter: cloudflare()
+	adapter: cloudflare(),
+
+	vite: {
+		plugins: [
+			tailwindcss(),
+			Icons({
+				compiler: "solid",
+			}),
+		],
+	},
+
+	integrations: [solidJs()],
 });

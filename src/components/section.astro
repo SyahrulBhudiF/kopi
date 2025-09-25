@@ -1,0 +1,32 @@
+---
+export interface Props {
+	id?: string;
+	title: string;
+	href?: string;
+	label?: string;
+	gridClasses?: string;
+}
+
+const { id, title, href, label } = Astro.props;
+---
+
+<section class="grid gap-3" id={id}>
+	<div class="flex items-center justify-between">
+		<h2 class="text-sm font-medium text-rose-pine-muted">{title}</h2>
+		{
+			href && label ? (
+				<a
+					href={href}
+					class="text-xs text-rose-pine-iris hover:underline"
+				>
+					{label}
+				</a>
+			) : null
+		}
+	</div>
+	<div
+		class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+	>
+		<slot />
+	</div>
+</section>
